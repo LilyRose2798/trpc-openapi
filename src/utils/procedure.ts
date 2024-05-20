@@ -29,6 +29,15 @@ const getProcedureType = (procedure: OpenApiProcedure): ProcedureType => {
   if (procedure._def.query) return 'query';
   if (procedure._def.mutation) return 'mutation';
   if (procedure._def.subscription) return 'subscription';
+
+  // tRPC 11 branches
+  // @ts-expect-error: tmp
+  if (procedure._def.type === 'query') return 'query';
+  // @ts-expect-error: tmp
+  if (procedure._def.type === 'mutation') return 'mutation';
+  // @ts-expect-error: tmp
+  if (procedure._def.type === 'subscription') return 'subscription';
+
   throw new Error('Unknown procedure type');
 };
 
